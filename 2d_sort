@@ -1,0 +1,83 @@
+#include<stdio.h>
+#define MAX 4
+#define RxC 16
+
+int main(int argc, char **argv) 
+{
+	int d[MAX][MAX] = { \
+		{1, 0,  2,  1}, \
+		{0, 1,  0,  4}, \
+		{1, 7,  8,  0}, \
+		{0, 3,  0,  3}  \
+	};
+	int s[MAX][MAX] = {{0}};
+	int o[RxC] = {0};
+	
+	int i, j, z;
+	int index = 0;
+	//////////////////////////////////////////////////////
+	for(i=0;i<MAX;i++) 
+	{
+		for(j=0;j<MAX;j++)
+		{
+			printf("%2d ",d[i][j]);
+		}
+		printf("\n");
+	}
+	printf("\n");
+	//////////////////////////////////////////////////////
+	index = 0;
+	for(i=0;i<MAX;i++) 
+	{
+		for(j=0;j<MAX;j++)
+		{
+			index = d[i][j];
+			o[index]++;
+		}	
+	}
+	///////////////////////////////////////////////////
+	for(i=0;i<RxC;i++)
+	{
+		printf("%d ",o[i]);
+	}
+	printf("\n");
+	///////////////////////////////////////////////////
+	z = o[0];
+	index = 0;
+	for(i=0;i<MAX;i++) 
+	{
+		for(j=0;j<MAX;)
+		{
+			if(i>0 && z>MAX) // z comparing with total columns
+			{
+				j++;
+				z--;
+				continue;
+			}
+			if(s[i][j] != 0)
+			{
+				j++;
+				continue;
+			}
+			while(o[index]>=1) 
+			{
+				s[i][j] = index;
+				o[index]--;
+				j++;
+			}
+			index++;	
+		}	
+	}
+	//////////////////////////////////////////////////////
+	printf("\n");
+	for(i=0;i<MAX;i++) 
+	{
+		for(j=0;j<MAX;j++)
+		{
+			printf("%3d",s[i][j]);	
+		}	
+		printf("\n");
+	}
+	
+	return 0;
+}
